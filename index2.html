@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Segurança</title>
+    <title>Painel de Controle - Rastreamento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,324 +13,263 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f7f7f7;
+            font-family: 'Poppins', sans-serif;
+            background: #f1f1f1;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('');
-            background-size: cover;
-            background-position: center;
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 40px;
+            background: #ffffff;
+            width: 90%;
+            max-width: 900px;
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 700px;
-            margin: 0 20px;
-            font-size: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         h1 {
-            font-size: 30px;
-            color: #2a2a2a;
+            font-size: 2.4rem;
+            margin-bottom: 30px;
+            color: #6a4c9c;
+            font-weight: 600;
+        }
+
+        .input-group {
             margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
+            text-align: left;
         }
 
-        p {
-            font-size: 16px;
+        .input-group label {
+            font-size: 1rem;
             color: #555;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        label {
-            font-size: 16px;
-            color: #333;
-            margin-top: 10px;
             display: block;
-            font-weight: bold;
+            margin-bottom: 8px;
         }
 
-        input,
-        select,
-        textarea {
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
             width: 100%;
-            padding: 14px;
-            margin-top: 8px;
-            margin-bottom: 18px;
-            border: 1px solid #ddd;
+            padding: 12px;
             border-radius: 8px;
-            font-size: 14px;
-            background-color: #fff;
-            color: #333;
-            transition: border-color 0.3s ease;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            font-size: 1rem;
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #4CAF50;
-            outline: none;
+        .input-group select {
+            background-color: #ffffff;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .input-group input[type="file"] {
+            padding: 5px;
+        }
+
+        .hidden {
+            display: none;
         }
 
         button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 14px 30px;
+            padding: 12px 24px;
+            font-size: 1rem;
             border-radius: 8px;
+            border: none;
+            background-color: #6a4c9c;
+            color: white;
             cursor: pointer;
-            font-size: 16px;
-            width: 100%;
             transition: background-color 0.3s ease;
         }
 
         button:hover {
+            background-color: #5a3c8c;
+        }
+
+        .add-person-btn {
+            background-color: #4caf50;
+        }
+
+        .add-person-btn:hover {
             background-color: #45a049;
         }
 
-        #informacoes {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #e7f7e7;
-            border-radius: 8px;
-            display: none;
-        }
-
-        #informacoes h2 {
-            font-size: 22px;
-            color: #333;
-        }
-
-        #informacoes p {
-            font-size: 16px;
-            color: #333;
-        }
-
-        #informacoesLaudo img {
-            width: 100%;
-            max-width: 250px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .campo {
-            margin-bottom: 20px;
-        }
-
-        input[type="file"] {
-            padding: 10px;
-        }
-
-        /* Campo para foto do indivíduo */
-        #fotoIndividuo {
+        .map-btn {
             margin-top: 20px;
+            background-color: #4caf50;
         }
 
-        .foto-preview {
-            margin-top: 15px;
-            max-width: 150px;
-            max-height: 150px;
-            border-radius: 8px;
-            overflow: hidden;
+        .map-btn:hover {
+            background-color: #45a049;
         }
 
-        /* Estilo para campos inválidos */
-        input:invalid,
-        select:invalid,
-        textarea:invalid {
-            border-color: red;
-        }
-
-        input:focus:invalid,
-        select:focus:invalid,
-        textarea:focus:invalid {
-            border-color: #f44336;
-        }
-
-        #outroDeficiencia {
+        .form-container {
             display: none;
+            margin-top: 30px;
         }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .age-group {
+            margin-top: 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .person-list {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .person-item {
+            background: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
     </style>
 </head>
-
 <body>
+
     <div class="container">
-        <h1>Formulário de Segurança</h1>
-        <p>Preencha seus dados para que, caso se perca, outras pessoas possam ajudá-lo a voltar para casa.</p>
-
-        <form id="formulario" onsubmit="mostrarInformacoes(event)">
-            <BR><BR><BR>
-            <!-- Nome do Paciente -->
-            <div class="campo">
-                <label for="nomePaciente">Nome do Paciente (Portador da Deficiência):</label>
-                <input type="text" id="nomePaciente" required aria-label="Nome do Paciente">
+        <h1>Painel de Controle - Rastreamento</h1>
+        <div id="person-list" class="person-list"></div>
+        <button class="add-person-btn" onclick="toggleForm()">Adicionar Nova Pessoa</button>
+        <div id="add-person-form" class="form-container">
+            <h2>Adicionar Nova Pessoa</h2>
+            <div class="input-group">
+                <label for="person-name">Nome</label>
+                <input type="text" id="person-name" required>
             </div>
-
-            <!-- Nome Completo do Responsável -->
-            <div class="campo">
-                <label for="nomeResponsavel">Nome do Responsável:</label>
-                <input type="text" id="nomeResponsavel" required aria-label="Nome do Responsável">
+            <div class="input-group">
+                <label for="person-dob">Data de Nascimento</label>
+                <input type="date" id="person-dob" onchange="calculateAge()" required>
             </div>
-
-            <!-- Foto do Paciente -->
-            <div class="campo" id="fotoIndividuo">
-                <label for="foto">Foto do Paciente:</label>
-                <input type="file" id="foto" accept="image/*" required onchange="previewFoto()" aria-label="Foto do Paciente">
-                <div id="fotoPreview" class="foto-preview"></div>
+            <div class="age-group">
+                <label for="person-age">Idade</label>
+                <input type="text" id="person-age" disabled>
             </div>
-
-            <!-- Data de Nascimento -->
-            <div class="campo">
-                <label for="dataNascimento">Data de Nascimento:</label>
-                <input type="date" id="dataNascimento" required aria-label="Data de Nascimento">
-            </div>
-
-            <!-- Idade -->
-            <div class="campo">
-                <label for="idade">Idade:</label>
-                <input type="number" id="idade" required min="1" max="120" aria-label="Idade">
-            </div>
-
-            <!-- Endereço -->
-            <div class="campo">
-                <label for="endereco">Endereço:</label>
-                <input type="text" id="endereco" required aria-label="Endereço">
-            </div>
-
-            <!-- Telefone -->
-            <div class="campo">
-                <label for="telefone">Número de Contato:</label>
-                <input type="tel" id="telefone" required pattern="\(\d{2}\) \d{4,5}-\d{4}" aria-label="Número de Contato">
-            </div>
-
-            <!-- Nome do Responsável -->
-            <div class="campo">
-                <label for="nomeResponsavel">Nome do Responsável:</label>
-                <input type="text" id="nomeResponsavel" required aria-label="Nome do Responsável">
-            </div>
-
-            <!-- Telefone do Responsável -->
-            <div class="campo">
-                <label for="telefoneResponsavel">Telefone do Responsável:</label>
-                <input type="tel" id="telefoneResponsavel" required pattern="\(\d{2}\) \d{4,5}-\d{4}" aria-label="Telefone do Responsável">
-            </div>
-
-            <!-- Deficiência -->
-            <div class="campo">
-                <label for="deficiencia">Tipo de Deficiência:</label>
-                <select id="deficiencia" required aria-label="Tipo de Deficiência" onchange="mostrarCampoOutro()">
-                    <option value="">Selecione...</option>
-                    <option value="visual">Visual</option>
-                    <option value="auditiva">Auditiva</option>
-                    <option value="motora">Motora</option>
-                    <option value="intelectual">Intelectual</option>
-                    <option value="outro">Outro</option>
+            <div class="input-group">
+                <label for="person-disability">Tipo de Deficiência</label>
+                <select id="person-disability" onchange="toggleOtherDisability()" required>
+                    <option value="Auditiva">Auditiva</option>
+                    <option value="Visual">Visual</option>
+                    <option value="Física">Física</option>
+                    <option value="Intelectual">Intelectual</option>
+                    <option value="Outra">Outra</option>
                 </select>
             </div>
-
-            <!-- Campo "Outro" para Deficiência -->
-            <div class="campo" id="outroDeficiencia">
-                <label for="descricaoDeficiencia">Descreva sua Deficiência:</label>
-                <input type="text" id="descricaoDeficiencia" aria-label="Descrição da Deficiência">
+            <div class="input-group hidden" id="other-disability-group">
+                <label for="other-disability">Especifique a deficiência</label>
+                <input type="text" id="other-disability">
             </div>
-
-            <!-- Necessidades Especiais -->
-            <div class="campo">
-                <label for="necessidadesEspeciais">Outras Necessidades Especiais (opcional):</label>
-                <textarea id="necessidadesEspeciais" rows="4" aria-label="Outras Necessidades Especiais"></textarea>
+            <div class="input-group" id="disability-description-group">
+                <label for="disability-description">Descrição da Deficiência</label>
+                <textarea id="disability-description"></textarea>
             </div>
-
-            <button type="submit">Salvar Informações</button>
-        </form>
-
-        <div id="informacoes">
-            <h2>Informações Salvas:</h2>
-            <p id="informacoesNomePaciente"></p>
-            <p id="informacoesIdade"></p>
-            <p id="informacoesEndereco"></p>
-            <p id="informacoesTelefone"></p>
-            <p id="informacoesNomeResponsavel"></p>
-            <p id="informacoesTelefoneResponsavel"></p>
-            <p id="informacoesDeficiencia"></p>
-            <p id="informacoesDescricaoDeficiencia"></p>
-            <p id="informacoesNecessidadesEspeciais"></p>
-            <div id="informacoesFoto"></div>
+            <div class="input-group">
+                <label for="father-name">Nome do Pai</label>
+                <input type="text" id="father-name" required>
+            </div>
+            <div class="input-group">
+                <label for="mother-name">Nome da Mãe</label>
+                <input type="text" id="mother-name" required>
+            </div>
+            <div class="input-group">
+                <label for="person-location">Localização</label>
+                <input type="text" id="person-location" required>
+            </div>
+            <div class="input-group">
+                <label for="person-photo">Foto do Indivíduo</label>
+                <input type="file" id="person-photo" accept="image/*" required>
+            </div>
+            <div class="input-group">
+                <label for="person-report">Foto do Laudo Médico</label>
+                <input type="file" id="person-report" accept="image/*" required>
+            </div>
+            <button class="add-person-btn" onclick="addPerson()">Adicionar</button>
         </div>
+        <button class="map-btn" onclick="showMap()">Visualizar Mapa</button>
     </div>
 
     <script>
-        function mostrarCampoOutro() {
-            const deficiencia = document.getElementById('deficiencia').value;
-            if (deficiencia === 'outro') {
-                document.getElementById('outroDeficiencia').style.display = 'block';
+        function toggleForm() {
+            const form = document.getElementById('add-person-form');
+            form.classList.toggle('active');
+        }
+
+        function toggleOtherDisability() {
+            const disabilitySelect = document.getElementById('person-disability');
+            const otherDisabilityGroup = document.getElementById('other-disability-group');
+            if (disabilitySelect.value === 'Outra') {
+                otherDisabilityGroup.classList.remove('hidden');
             } else {
-                document.getElementById('outroDeficiencia').style.display = 'none';
+                otherDisabilityGroup.classList.add('hidden');
             }
         }
 
-        function previewFoto() {
-            const foto = document.getElementById('foto').files[0];
-            const preview = document.getElementById('fotoPreview');
-            preview.innerHTML = '';
-            if (foto) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    preview.innerHTML = `<img src="${e.target.result}" alt="Foto do Paciente">`;
-                };
-                reader.readAsDataURL(foto);
+        function calculateAge() {
+            const dob = document.getElementById('person-dob').value;
+            if (dob) {
+                const birthDate = new Date(dob);
+                const currentDate = new Date();
+                let age = currentDate.getFullYear() - birthDate.getFullYear();
+                const month = currentDate.getMonth();
+                if (month < birthDate.getMonth() || (month === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                document.getElementById('person-age').value = age;
             }
         }
 
-        function mostrarInformacoes(event) {
-            event.preventDefault(); 
+        function addPerson() {
+            const name = document.getElementById('person-name').value;
+            const dob = document.getElementById('person-dob').value;
+            const disability = document.getElementById('person-disability').value;
+            const otherDisability = document.getElementById('other-disability').value;
+            const description = document.getElementById('disability-description').value;
+            const fatherName = document.getElementById('father-name').value;
+            const motherName = document.getElementById('mother-name').value;
+            const location = document.getElementById('person-location').value;
 
-            const nomePaciente = document.getElementById('nomePaciente').value;
-            const idade = document.getElementById('idade').value;
-            const endereco = document.getElementById('endereco').value;
-            const telefone = document.getElementById('telefone').value;
-            const nomeResponsavel = document.getElementById('nomeResponsavel').value;
-            const telefoneResponsavel = document.getElementById('telefoneResponsavel').value;
-            const deficiencia = document.getElementById('deficiencia').value;
-            const descricaoDeficiencia = document.getElementById('descricaoDeficiencia').value;
-            const necessidadesEspeciais = document.getElementById('necessidadesEspeciais').value;
-            const foto = document.getElementById('foto').files[0];
+            if (name && dob && disability && fatherName && motherName && location) {
+                const personList = document.getElementById('person-list');
+                const personItem = document.createElement('div');
+                personItem.classList.add('person-item');
 
-            document.getElementById('informacoesNomePaciente').textContent = `Nome do Paciente: ${nomePaciente}`;
-            document.getElementById('informacoesIdade').textContent = `Idade: ${idade} anos`;
-            document.getElementById('informacoesEndereco').textContent = `Endereço: ${endereco}`;
-            document.getElementById('informacoesTelefone').textContent = `Telefone: ${telefone}`;
-            document.getElementById('informacoesNomeResponsavel').textContent = `Responsável: ${nomeResponsavel}`;
-            document.getElementById('informacoesTelefoneResponsavel').textContent = `Telefone do Responsável: ${telefoneResponsavel}`;
-            document.getElementById('informacoesDeficiencia').textContent = `Deficiência: ${deficiencia}`;
+                const age = document.getElementById('person-age').value;
 
-            if (descricaoDeficiencia) {
-                document.getElementById('informacoesDescricaoDeficiencia').textContent = `Descrição da Deficiência: ${descricaoDeficiencia}`;
+                personItem.innerHTML = `
+                    <strong>${name}</strong><br>
+                    Idade: ${age}<br>
+                    Deficiência: ${disability} ${disability === 'Outra' ? `(${otherDisability} - ${description})` : ''}<br>
+                    Pai: ${fatherName}<br>
+                    Mãe: ${motherName}<br>
+                    Localização: ${location}
+                `;
+                personList.appendChild(personItem);
+                toggleForm();
+                alert('Pessoa adicionada com sucesso!');
+            } else {
+                alert('Por favor, preencha todos os campos obrigatórios.');
             }
+        }
 
-            if (necessidadesEspeciais) {
-                document.getElementById('informacoesNecessidadesEspeciais').textContent = `Necessidades Especiais: ${necessidadesEspeciais}`;
-            }
-
-            if (foto) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const fotoDiv = document.getElementById('informacoesFoto');
-                    fotoDiv.innerHTML = `<img src="${e.target.result}" alt="Foto do Paciente" style="width: 100%; max-width: 150px;">`;
-                };
-                reader.readAsDataURL(foto);
-            }
-
-            document.getElementById('informacoes').style.display = 'block';
+        function showMap() {
+            alert('Funcionalidade de mapa ainda não implementada.');
         }
     </script>
 </body>
-
 </html>

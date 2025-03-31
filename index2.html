@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Controle - Rastreamento</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js"></script>
     <style>
         * {
             margin: 0;
@@ -269,6 +272,27 @@
 
         function showMap() {
             alert('Funcionalidade de mapa ainda não implementada.');
+        }
+        function addPerson() {
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                alert('Você precisa estar logado!');
+                return;
+            }
+            
+            const name = document.getElementById('person-name').value;
+            if (name) {
+                db.collection('users').doc(user.uid).collection('people').add({
+                    name: name,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                })
+                .then(() => alert('Pessoa adicionada!'))
+                .catch(error => alert(error.message));
+            }
+        }
+
+        function logout() {
+            firebase.auth().signOut().then(() => window.location.href = 'index.html');
         }
     </script>
 </body>
